@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <body background="b.jpg">
+  <title>Tunner Auto Body Shop Billing System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 800px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+
+    .form {
+      width: 300px;
+    }
+
+    .result {
+      width: 400px;
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #totalPrice {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-top: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tunner Auto Body Shop Billing System</h1>
+
+  <div class="container">
+    <div class="form">
+      <h2>Select an option:</h2>
+      <button onclick="showNewCarForm()">New Car</button>
+      <button onclick="showCarUpgradeForm()">Car Upgrade</button>
+
+      <div id="newCarForm" style="display: none;">
+        <h2>New Car</h2>
+        <label for="carName">Car Name:</label>
+        <input type="text" id="carName" required><br>
+
+        <label for="vehiclePlate">Vehicle Number Plate:</label>
+        <input type="text" id="vehiclePlate" required><br>
+
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" required><br>
+
+        <label for="cid">CID:</label>
+        <input type="number" id="cid" required><br>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" required><br>
+
+        <label for="carPrice">Car Price:</label>
+        <input type="number" id="carPrice" step="0.01" required><br>
+
+        <button type="button" onclick="addNewCar()">Add New Car</button>
+      </div>
+
+      <div id="carUpgradeForm" style="display: none;">
+        <h2>Car Upgrade</h2>
+        <label for="upgradeCustomerName">Customer Name:</label>
+        <input type="text" id="upgradeCustomerName" required><br>
+
+        <label for="upgradeVehicleName">Vehicle Name:</label>
+        <input type="text" id="upgradeVehicleName" required><br>
+
+        <label for="upgradeVehiclePlate">Vehicle Number Plate:</label>
+        <input type="text" id="upgradeVehiclePlate" required><br>
+
+        <label for="upgradeCid">CID:</label>
+        <input type="number" id="upgradeCid" required><br>
+
+        <label for="upgradePhoneNumber">Phone Number:</label>
+        <input type="text" id="upgradePhoneNumber" required><br>
+
+        <label for="performanceUpgrades">Performance Upgrades:</label>
+        <input type="number" id="performanceUpgrades" step="0.01" required><br>
+
+        <label for="cosmeticUpgrades">Cosmetic Upgrades:</label>
+        <input type="number" id="cosmeticUpgrades" step="0.01" required><br>
+
+        <button type="button" onclick="addCarUpgrade()">Add Car Upgrade</button>
+      </div>
+    </div>
+
+    <div class="result">
+      <h2>Result</h2>
+      <textarea id="result" rows="10" cols="30" readonly></textarea>
+
+      <h2 id="totalPrice"></h2>
+    </div>
+  </div>
+
+  <script>
+    function showNewCarForm() {
+      document.getElementById("newCarForm").style.display = "block";
+      document.getElementById("carUpgradeForm").style.display = "none";
+    }
+
+    function showCarUpgradeForm() {
+      document.getElementById("newCarForm").style.display = "none";
+      document.getElementById("carUpgradeForm").style.display = "block";
+    }
+
+    function addNewCar() {
+      var carName = document.getElementById("carName").value;
+      var vehiclePlate = document.getElementById("vehiclePlate").value;
+      var customerName = document.getElementById("customerName").value;
+      var cid = document.getElementById("cid").value;
+      var phoneNumber = document.getElementById("phoneNumber").value;
+      var carPrice = parseFloat(document.getElementById("carPrice").value);
+
+      var totalPrice = carPrice;
+
+      var carDetails = "New Car Details:\n";
+      carDetails += "Car Name: " + carName + "\n";
+      carDetails += "Vehicle Number Plate: " + vehiclePlate + "\n";
+      carDetails += "Customer Name: " + customerName + "\n";
+      carDetails += "CID: " + cid + "\n";
+      carDetails += "Phone Number: " + phoneNumber + "\n";
+      carDetails += "Car Price: $" + carPrice.toFixed(2) + "\n\n";
+
+      document.getElementById("result").value = carDetails;
+      document.getElementById("totalPrice").innerHTML = "Total Price: $" + totalPrice.toFixed(2);
+    }
+
+    function addCarUpgrade() {
+      var customerName = document.getElementById("upgradeCustomerName").value;
+      var vehicleName = document.getElementById("upgradeVehicleName").value;
+      var vehiclePlate = document.getElementById("upgradeVehiclePlate").value;
+      var cid = document.getElementById("upgradeCid").value;
+      var phoneNumber = document.getElementById("upgradePhoneNumber").value;
+      var performanceUpgrades = parseFloat(document.getElementById("performanceUpgrades").value);
+      var cosmeticUpgrades = parseFloat(document.getElementById("cosmeticUpgrades").value);
+
+      var totalPrice = performanceUpgrades + cosmeticUpgrades;
+
+      var upgradeDetails = "Car Upgrade Details:\n";
+      upgradeDetails += "Customer Name: " + customerName + "\n";
+      upgradeDetails += "Vehicle Name: " + vehicleName + "\n";
+      upgradeDetails += "Vehicle Number Plate: " + vehiclePlate + "\n";
+      upgradeDetails += "CID: " + cid + "\n";
+      upgradeDetails += "Phone Number: " + phoneNumber + "\n";
+      upgradeDetails += "Performance Upgrades: $" + performanceUpgrades.toFixed(2) + "\n";
+      upgradeDetails += "Cosmetic Upgrades: $" + cosmeticUpgrades.toFixed(2) + "\n\n";
+
+      document.getElementById("result").value = upgradeDetails;
+      document.getElementById("totalPrice").innerHTML = "Total Price: $" + totalPrice.toFixed(2);
+    }
+  </script>
+</body>
+</html>
